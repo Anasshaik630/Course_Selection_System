@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subject Selection Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            max-width: 600px;
+        }
+        label {
+            margin-top: 10px;
+            display: block;
+        }
+        select, input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Student Subject Selection Form</h1>
+
+    <form id="studentForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" required>
+
+        <label for="regNo">Registration Number:</label>
+        <input type="text" id="regNo" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" required>
+
+        <label for="phone">Phone No:</label>
+        <input type="tel" id="phone" required>
+
+        <label for="year">Year:</label>
+        <select id="year" onchange="updateForm()">
+            <option value="">Select Year</option>
+            <option value="1">1st Year</option>
+            <option value="2">2nd Year</option>
+            <option value="3">3rd Year</option>
+            <option value="4">4th Year</option>
+        </select>
+
+        <label for="sem">Semester:</label>
+        <select id="sem" onchange="updateForm()" class="hidden">
+            <option value="">Select Semester</option>
+            <option value="1">1st Semester</option>
+            <option value="2">2nd Semester</option>
+        </select>
+
+        <label for="branch">Branch:</label>
+        <select id="branch" onchange="updateForm()">
+            <option value="">Select Branch</option>
+            <option value="cse">CSE</option>
+            <option value="ece">ECE</option>
+            <option value="eee">EEE</option>
+            <option value="mech">MECH</option>
+            <option value="civil">CIVIL</option>
+        </select>
+
+        <div id="subjectLabSection" >
+            <h3>Subject and Lab Selection</h3>
+            <div id="subjectInputs"></div>
+            <div id="labInputs"></div>
+        </div>
+
+        <a href="faculity.html" onclick="submitForm()">Submit</a>
+    </form>
+
+    <script>
+        function updateForm() {
+            const year = document.getElementById('year').value;
+            const branch = document.getElementById('branch').value;
+            const semSelect = document.getElementById('sem');
+            const subjectInputs = document.getElementById('subjectInputs');
+            const labInputs = document.getElementById('labInputs');
+            subjectInputs.innerHTML = '';
+            labInputs.innerHTML = '';
+
+            if (!year || !branch) {
+                semSelect.classList.add('hidden');
+                document.getElementById('subjectLabSection').classList.add('hidden');
+                return;
+            }
+
+            semSelect.classList.remove('hidden');
+
+            const subjects = {
+                '1': {
+                    'default': [
+                        ['Physics', 'Physics'],
+                        ['Chemistry', 'Chemistry'],
+                        ['Mathematics', 'Mathematics'],
+                        ['Computer Science', 'Computer Science']
+                    ]
+                },
+                '2': {
+                    'cse': [
+                        ['Data Structures', 'Data Structures'],
+                        ['Database Management Systems', 'Database Management Systems'],
+                        ['Operating Systems', 'Operating Systems'],
+                        ['Software Engineering', 'Software Engineering']
+                    ],
+                    'ece': [
+                        ['Signals and Systems', 'Signals and Systems'],
+                        ['Digital Electronics', 'Digital Electronics'],
+                        ['Microprocessors', 'Microprocessors'],
+                        ['Electromagnetic Fields', 'Electromagnetic Fields']
+                    ],
+                    'eee': [
+                        ['Electrical Circuits', 'Electrical Circuits'],
+                        ['Electromagnetic Fields', 'Electromagnetic Fields'],
+                        ['Control Systems', 'Control Systems'],
+                        ['Digital Electronics', 'Digital Electronics']
+                    ],
+                    'mech': [
+                        ['Thermodynamics', 'Thermodynamics'],
+                        ['Fluid Mechanics', 'Fluid Mechanics'],
+                        ['Manufacturing Processes', 'Manufacturing Processes'],
+                        ['Machine Design', 'Machine Design']
+                    ],
+                    'civil': [
+                        ['Structural Analysis', 'Structural Analysis'],
+                        ['Fluid Mechanics', 'Fluid Mechanics'],
+                        ['Geotechnical Engineering', 'Geotechnical Engineering'],
+                        ['Transportation Engineering', 'Transportation Engineering']
+                    ]
+                },
+                '3': {
+                    'default': [
+                        ['Compiler Design', 'Compiler Design'],
+                        ['Computer Networks', 'Computer Networks'],
+                        ['Artificial Intelligence', 'Artificial Intelligence'],
+                        ['Web Technology', 'Web Technology']
+                    ]
+                },
+                '4': {
+                    'default': [
+                        ['Software Architecture', 'Software Architecture'],
+                        ['Cloud Computing', 'Cloud Computing'],
+                        ['Machine Learning', 'Machine Learning'],
+                        ['Data Mining', 'Data Mining']
+                    ]
+                }
+            };
+
+            const subjectsForYear = subjects[year];
+            let subjectsOptions = subjectsForYear[branch] || subjectsForYear.default;
+
+            // Adding Theory Subjects
+            subjectsOptions.forEach((subject, index) => {
+                if (index < 4) { // Limit to 4 theory subjects
+                    const subjectInput = document.createElement('select');
+                    subjectInput.innerHTML = `<option value="">Select Subject</option>`;
+                    subjectInput.innerHTML += `<option value="${subject[1]}">${subject[0]}</option>`;
+                    subjectInput.id = `subject${index + 1}`;
+                    subjectInputs.appendChild(subjectInput);
+                }
+            });
+
+            // Adding Lab Subjects
+            const labOptions = [
+                ['IT Lab', 'IT Lab'],
+                ['PSP Lab', 'PSP Lab']
+            ];
+
+            labOptions.forEach((lab, index) => {
+                const labInput = document.createElement('select');
+                labInput.innerHTML = `<option value="">Select Lab</option>`;
+                labInput.innerHTML += `<option value="${lab[1]}">${lab[0]}</option>`;
+                labInput.id = `lab${index + 1}`;
+                labInputs.appendChild(labInput);
+            });
+
+            document.getElementById('subjectLabSection').classList.remove('hidden');
+        }
+
+        function submitForm() {
+            const name = document.getElementById('name').value;
+            const regNo = document.getElementById('regNo').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const year = document.getElementById('year').value;
+            const semester = document.getElementById('sem').value;
+            const branch = document.getElementById('branch').value;
+
+            const selectedSubjects = [];
+            const selectedLabs = [];
+
+            for (let i = 0; i < 4; i++) {
+                const subjectSelect = document.getElementById(`subject${i + 1}`);
+                if (subjectSelect) {
+                    const subjectValue = subjectSelect.value;
+                    if (subjectValue) {
+                        selectedSubjects.push(subjectValue);
+                    }
+                }
+            }
+
+            for (let j = 0; j < 2; j++) {
+                const labSelect = document.getElementById(`lab${j + 1}`);
+                if (labSelect) {
+                    const labValue = labSelect.value;
+                    if (labValue) {
+                        selectedLabs.push(labValue);
+                    }
+                }
+            }
+
+            const formData = {
+                name,
+                regNo,
+                email,
+                phone,
+                year,
+                semester,
+                branch,
+                subjects: selectedSubjects,
+                labs: selectedLabs
+            };
+
+            console.log('Form Submitted', formData);
+            alert('Form Submitted! Check the console for details.');
+        }
+    </script>
+
+</body>
+</html>

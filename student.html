@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Screen Student Information Form</title>
+    <!-- Add Google Fonts for Better Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-image: url('https://images.unsplash.com/photo-1522143049013-c33a2f3ad6b3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDJ8fHxlZHVjYXRpb258ZW58MHx8fHwxNjY1NzExMjI4&ixlib=rb-1.2.1&q=80&w=1080'); /* Replace with your own background */
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.85); /* Slightly transparent background */
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 700px;
+            text-align: center;
+        }
+        .form-container h2 {
+            margin-bottom: 30px;
+            font-size: 32px;
+            color: #007bff;
+        }
+        .form-group {
+            position: relative;
+            margin-bottom: 25px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 15px;
+            padding-left: 50px; /* Make space for the icon */
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        .form-group i {
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+            font-size: 18px;
+            color: #007bff;
+        }
+        .form-group select {
+            appearance: none;
+            background-color: #fff;
+        }
+        .form-group button {
+            width: 100%;
+            padding: 15px;
+            background-color: #007bff;
+            color: white;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+        .form-group button:focus {
+            outline: none;
+        }
+        /* Success message */
+        .success-message {
+            color: green;
+            margin-top: 20px;
+        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Student Information Form</h2>
+        <form id="studentForm">
+            <!-- Name input with icon -->
+            <div class="form-group">
+                <i class="fas fa-user"></i>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+            </div>
+            <!-- RegNo input with icon -->
+            <div class="form-group">
+                <i class="fas fa-id-card"></i>
+                <input type="text" id="regno" name="regno" placeholder="Enter your registration number" required>
+            </div>
+            <!-- Email input with icon -->
+            <div class="form-group">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <!-- Phone input with icon -->
+            <div class="form-group">
+                <i class="fas fa-phone"></i>
+                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+            </div>
+            <!-- Year input with icon -->
+            <div class="form-group">
+                <i class="fas fa-calendar-alt"></i>
+                <select id="year" name="year" required>
+                    <option value="">Select your year</option>
+                    <option value="1">1st Year</option>
+                    <option value="2">2nd Year</option>
+                    <option value="3">3rd Year</option>
+                    <option value="4">4th Year</option>
+                </select>
+            </div>
+            <!-- Semester input with icon -->
+            <div class="form-group">
+                <i class="fas fa-calendar-day"></i>
+                <select id="semester" name="semester" required>
+                    <option value="">Select your semester</option>
+                    <option value="1">1st Semester</option>
+                    <option value="2">2nd Semester</option>
+                </select>
+            </div>
+            <!-- Submit button -->
+            <div class="form-group">
+
+            <a href="subject.html" onclick="submitForm()">Submit</a>
+            </div>
+            <!-- Success message -->
+            <div id="success-message" class="success-message"></div>
+        </form>
+    </div>
+
+    <script>
+        function submitForm() {
+            // Get form values
+            const name = document.getElementById('name').value;
+            const regno = document.getElementById('regno').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const year = document.getElementById('year').value;
+            const semester = document.getElementById('semester').value;
+            const successMessage = document.getElementById('success-message');
+
+            // Send data to the server
+            fetch('/submit-student', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name, regno, email, phone, year, semester })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    successMessage.textContent = "Student information submitted successfully!";
+                } else {
+                    successMessage.textContent = "Error submitting the information.";
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

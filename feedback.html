@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Feedback Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .feedback-form {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        .feedback-select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-top: 10px;
+        }
+        .star-rating {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+        .star {
+            font-size: 24px;
+            color: #ddd;
+            cursor: pointer;
+            margin: 0 2px;
+        }
+        .star.checked {
+            color: gold;
+        }
+        .feedback-textarea {
+            width: 100%;
+            height: 100px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        .feedback-button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Faculty Feedback Form</h1>
+    <div class="feedback-form">
+        <label for="faculty-select">Select Faculty:</label>
+        <select id="faculty-select" class="feedback-select">
+            <option value="" disabled selected>Select a faculty member</option>
+            <option value="Dr. John Doe">Dr. John Doe</option>
+            <option value="Ms. Jane Smith">Ms. Jane Smith</option>
+            <option value="Dr. Alice Johnson">Dr. Alice Johnson</option>
+            <option value="Mr. Bob Brown">Mr. Bob Brown</option>
+            <option value="Ms. Mary Davis">Ms. Mary Davis</option>
+            <option value="Dr. Emily Wilson">Dr. Emily Wilson</option>
+            <option value="Dr. Michael Taylor">Dr. Michael Taylor</option>
+            <option value="Ms. Sarah White">Ms. Sarah White</option>
+        </select>
+
+        <div class="star-rating" id="star-rating">
+            <span class="star" data-value="1">&#9733;</span>
+            <span class="star" data-value="2">&#9733;</span>
+            <span class="star" data-value="3">&#9733;</span>
+            <span class="star" data-value="4">&#9733;</span>
+            <span class="star" data-value="5">&#9733;</span>
+        </div>
+
+        <textarea class="feedback-textarea" placeholder="Provide your feedback..."></textarea>
+        <button class="feedback-button" onclick="submitFeedback()">Submit Feedback</button>
+    </div>
+
+    <script>
+        let selectedRating = 0;
+
+        document.querySelectorAll('.star').forEach(star => {
+            star.addEventListener('click', function () {
+                selectedRating = this.getAttribute('data-value');
+                document.querySelectorAll('.star').forEach(s => {
+                    s.classList.remove('checked');
+                });
+                for (let i = 0; i < selectedRating; i++) {
+                    document.querySelectorAll('.star')[i].classList.add('checked');
+                }
+            });
+        });
+
+        function submitFeedback() {
+            const selectedFaculty = document.getElementById('faculty-select').value;
+            const feedback = document.querySelector('.feedback-textarea').value;
+
+            if (selectedFaculty && feedback && selectedRating > 0) {
+                alert(`Feedback submitted for ${selectedFaculty} with rating: ${selectedRating} stars.\nFeedback: ${feedback}`);
+                // Reset form
+                document.getElementById('faculty-select').selectedIndex = 0;
+                document.querySelector('.feedback-textarea').value = '';
+                selectedRating = 0;
+                document.querySelectorAll('.star').forEach(s => s.classList.remove('checked'));
+            } else {
+                alert('Please select a faculty member, provide feedback, and rate them before submitting.');
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #f0f0f0;
+}
+
+/* Navigation Menu */
+header {
+    background-color: #fff;
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+}
+
+nav ul li {
+    margin: 0 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #000;
+    font-size: 16px;
+}
+
+nav ul li a:hover {
+    color: #007bff;
+}
+
+/* Hero Section */
+.hero {
+    background-image: url('main\ image.jpg'); /* Add background image path */
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.hero h1 {
+    font-size: 38px;
+    margin-bottom: 20px;
+}
+
+.hero h1 span {
+    color: #007bff;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Info Section */
+.info-section {
+    display: flex;
+    justify-content: space-around;
+    padding: 40px;
+    background-color: #fff;
+}
+
+.info-box {
+    width: 45%;
+}
+
+.info-box h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.info-box p, .info-box address {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+}
+
+.info-box address {
+    font-style: normal;
+}
+
+/* Footer Section */
+footer {
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    margin-top: 20px;
+    border-top: 1px solid #ddd;
+}
+
+footer p {
+    color: #555;
+    font-size: 14px;
+}
+
+footer strong {
+    color: #007bff;
+}
+

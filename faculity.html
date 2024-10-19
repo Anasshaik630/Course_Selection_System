@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Faculty Members</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px; /* Increased width for better layout */
+            margin: auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .faculty-card {
+            text-align: center;
+            margin-top: 20px;
+            padding: 20px;
+            background: #eaeaea;
+            border-radius: 8px;
+            display: inline-block; /* Change to inline-block for horizontal alignment */
+            width: calc(25% - 20px); /* Adjust width to fit 4 in a row */
+            margin: 10px; /* Added margin for spacing */
+        }
+
+        .faculty-card img {
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            margin-bottom: 15px;
+        }
+
+        .rating {
+            color: #FFA500;
+            margin: 10px 0;
+        }
+
+        .fa-star {
+            color: #FFA500;
+        }
+
+        .button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .confirmation {
+            margin-top: 20px;
+            padding: 10px;
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+        }
+
+        .search {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: calc(100% - 20px);
+        }
+
+        /* Media query for responsiveness */
+        @media (max-width: 768px) {
+            .faculty-card {
+                width: calc(50% - 20px); /* 2 cards per row for smaller screens */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .faculty-card {
+                width: 100%; /* Full width for mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Select Faculty Members</h2>
+
+        <input type="text" class="search" id="search-input" placeholder="Search for faculty..." onkeyup="filterFaculty()">
+
+        <!-- Faculty Member Cards -->
+        <div id="faculty-1" class="faculty-card">
+            <label>
+                <input type="checkbox" class="faculty-checkbox" value="Dr. John Doe - Advanced Data Structures">
+                <img src="g2.jpg" alt="Faculty Image">
+                <h3>Dr. John Doe</h3>
+                <p>Ph.D. in Computer Science</p>
+                <p>5 years of experience</p>
+                <p class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </p>
+                <p>Specializes in teaching advanced data structures.</p>
+            </label>
+        </div>
+
+        <div id="faculty-2" class="faculty-card">
+            <label>
+                <input type="checkbox" class="faculty-checkbox" value="Prof. Jane Smith - Database Management Systems">
+                <img src="g3.jpg" alt="Faculty Image">
+                <h3>Prof. Jane Smith</h3>
+                <p>M.Sc. in Computer Science</p>
+                <p>7 years of experience</p>
+                <p class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </p>
+                <p>Expert in database management systems.</p>
+            </label>
+        </div>
+
+        <div id="faculty-3" class="faculty-card">
+            <label>
+                <input type="checkbox" class="faculty-checkbox" value="Dr. Emily Johnson - Machine Learning">
+                <img src="g4.jpg" alt="Faculty Image">
+                <h3>Dr. Emily Johnson</h3>
+                <p>Ph.D. in Artificial Intelligence</p>
+                <p>8 years of experience</p>
+                <p class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </p>
+                <p>Focuses on machine learning applications.</p>
+            </label>
+        </div>
+
+        <div id="faculty-4" class="faculty-card">
+            <label>
+                <input type="checkbox" class="faculty-checkbox" value="Mr. Alan Brown - Software Engineering">
+                <img src="g5.jpg" alt="Faculty Image">
+                <h3>Mr. Alan Brown</h3>
+                <p>M.Tech. in Software Engineering</p>
+                <p>6 years of experience</p>
+                <p class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </p>
+                <p>Teaches software engineering principles.</p>
+            </label>
+        </div>
+
+        <div id="faculty-5" class="faculty-card">
+            <label>
+                <input type="checkbox" class="faculty-checkbox" value="Ms. Sarah Davis - Web Development">
+                <img src="g6.jpg" alt="Faculty Image">
+                <h3>Ms. Sarah Davis</h3>
+                <p>M.Sc. in Computer Science</p>
+                <p>4 years of experience</p>
+                <p class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <i class="far fa-star"></i>
+                </p>
+                <p>Specializes in web development.</p>
+            </label>
+        </div>
+
+        <div id="faculty-6" class="faculty-card">
+            <label>
+                <input type="checkbox" class="faculty-checkbox" value="Dr. Mark Wilson - Cloud Computing">
+                <img src="g7.jpg" alt="Faculty Image">
+                <h3>Dr. Mark Wilson</h3>
+                <p>Ph.D. in Cloud Computing</p>
+                <p>10 years of experience</p>
+                <p class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </p>
+                <p>Focuses on cloud architectures.</p>
+            </label>
+        </div>
+
+        <div id="faculty-7" class="faculty-card">
+            <label>
+                <input type="checkbox" class="faculty-checkbox" value="Dr. Michael Taylor - Network Security">
+                <img src="g8.jpg" alt="Faculty Image">
+                <h3>Dr. Michael Taylor</h3>
+                <p>Ph.D. in Cybersecurity</p>
+                <p>9 years of experience</p>
+                <p class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </p>
+                <p>Expert in network security protocols.</p>
+            </label>
+        </div>
+
+        <div id="faculty-8" class="faculty-card">
+            <label>
+                <input type="checkbox" class="faculty-checkbox" value="Ms. Olivia Harris - Data Analytics">
+                <img src="g9.jpg" alt="Faculty Image">
+                <h3>Ms. Olivia Harris</h3>
+                <p>M.Sc. in Data Science</p>
+                <p>4 years of experience</p>
+                <p class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                </p>
+                <p>Focuses on data analytics techniques.</p>
+            </label>
+        </div>
+
+        <div id="faculty-9" class="faculty-card">
+            <label>
+                <input type="checkbox" class="faculty-checkbox" value="Mr. Kevin Anderson - Operating Systems">
+                <img src="g10.jpg" alt="Faculty Image">
+                <h3>Mr. Kevin Anderson</h3>
+                <p>M.Tech. in Computer Science</p>
+                <p>4 years of experience</p>
+                <p class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                </p>
+                <p>Teaches operating systems concepts.</p>
+            </label>
+        </div>
+
+        <div id="faculty-10" class="faculty-card">
+            <label>
+                <input type="checkbox" class="faculty-checkbox" value="Dr. Karen Martin - Software Testing">
+                <img src="g11.jpg" alt="Faculty Image">
+                <h3>Dr. Karen Martin</h3>
+                <p>Ph.D. in Software Engineering</p>
+                <p>6 years of experience</p>
+                <p class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </p>
+                <p>Expert in software testing methodologies.</p>
+            </label>
+        </div>
+
+        <div id="faculty-11" class="faculty-card">
+            <label>
+                <input type="checkbox" class="faculty-checkbox" value="Ms. Angela Lewis - User Interface Design">
+                <img src="g12.jpg" alt="Faculty Image">
+                <h3>Ms. Angela Lewis</h3>
+                <p>M.Sc. in Human-Computer Interaction</p>
+                <p>3 years of experience</p>
+                <p class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                </p>
+                <p>Focuses on UI/UX design principles.</p>
+            </label>
+        </div>
+
+        <div id="faculty-12" class="faculty-card">
+            <label>
+                <input type="checkbox" class="faculty-checkbox" value="Dr. Henry Thompson - Information Retrieval">
+                <img src="g13.jpg" alt="Faculty Image">
+                <h3>Dr. Henry Thompson</h3>
+                <p>Ph.D. in Information Systems</p>
+                <p>7 years of experience</p>
+                <p class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </p>
+                <p>Expert in information retrieval techniques.</p>
+            </label>
+        </div>
+
+        <div id="faculty-13" class="faculty-card">
+            <label>
+                <input type="checkbox" class="faculty-checkbox" value="Prof. Emma Walker - Ethical Hacking">
+                <img src="g15.jpg" alt="Faculty Image">
+                <h3>Prof. Emma Walker</h3>
+                <p>M.Tech. in Cybersecurity</p>
+                <p>8 years of experience</p>
+                <p class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </p>
+                <p>Specializes in ethical hacking practices.</p>
+            </label>
+        </div>
+
+        <div id="faculty-14" class="faculty-card">
+            <label>
+                <input type="checkbox" class="faculty-checkbox" value="Dr. Joshua Young - Digital Signal Processing">
+                <img src="g16.jpg" alt="Faculty Image">
+                <h3>Dr. Joshua Young</h3>
+                <p>Ph.D. in Signal Processing</p>
+                <p>6 years of experience</p>
+                <p class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <i class="far fa-star"></i>
+                </p>
+                <p>Focuses on digital signal processing applications.</p>
+            </label>
+        </div>
+
+        <div id="faculty-15" class="faculty-card">
+            <label>
+                <input type="checkbox" class="faculty-checkbox" value="Mr. Robert King - Game Development">
+                <img src="g17.jpg" alt="Faculty Image">
+                <h3>Mr. Robert King</h3>
+                <p>M.Tech. in Game Design</p>
+                <p>5 years of experience</p>
+                <p class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <i class="far fa-star"></i>
+                </p>
+                <p>Teaches game development and design.</p>
+            </label>
+        </div>
+
+        <div id="faculty-16" class="faculty-card">
+            <label>
+                <input type="checkbox" class="faculty-checkbox" value="Dr. Linda Hall - Blockchain Technology">
+                <img src="g18.jpg" alt="Faculty Image">
+                <h3>Dr. Linda Hall</h3>
+                <p>Ph.D. in Blockchain Technology</p>
+                <p>7 years of experience</p>
+                <p class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </p>
+                <p>Expert in blockchain systems.</p>
+            </label>
+        </div>
+
+        <div id="faculty-17" class="faculty-card">
+            <label>
+                <input type="checkbox" class="faculty-checkbox" value="Ms. Megan Scott - Augmented Reality">
+                <img src="g19.jpg" alt="Faculty Image">
+                <h3>Ms. Megan Scott</h3>
+                <p>M.Sc. in Augmented Reality</p>
+                <p>4 years of experience</p>
+                <p class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                </p>
+                <p>Focuses on augmented reality technologies.</p>
+            </label>
+        </div>
+
+        <div id="faculty-18" class="faculty-card">
+            <label>
+                <input type="checkbox" class="faculty-checkbox" value="Dr. Samuel Clark - Quantum Computing">
+                <img src="g20.jpg" alt="Faculty Image">
+                <h3>Dr. Samuel Clark</h3>
+                <p>Ph.D. in Quantum Computing</p>
+                <p>9 years of experience</p>
+                <p class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </p>
+                <p>Specializes in quantum algorithms.</p>
+            </label>
+        </div>
+
+        <div id="faculty-19" class="faculty-card">
+            <label>
+                <input type="checkbox" class="faculty-checkbox" value="Ms. Julia Turner - Human-Computer Interaction">
+                <img src="g21.jpg" alt="Faculty Image">
+                <h3>Ms. Julia Turner</h3>
+                <p>M.Sc. in HCI</p>
+                <p>5 years of experience</p>
+                <p class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                </p>
+                <p>Focuses on user experience design.</p>
+            </label>
+        </div>
+
+        <div id="faculty-20" class="faculty-card">
+            <label>
+                <input type="checkbox" class="faculty-checkbox" value="Dr. Charles Wright - Bioinformatics">
+                <img src="g22.jpg" alt="Faculty Image">
+                <h3>Dr. Charles Wright</h3>
+                <p>Ph.D. in Bioinformatics</p>
+                <p>8 years of experience</p>
+                <p class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </p>
+                <p>Expert in computational biology.</p>
+            </label>
+        </div>
+
+    
+
+        <a href="feedback.html" class="button" onclick="submitSelection()">Submit Selection</a>
+
+        <div class="confirmation" id="confirmation-message" style="display:none;">
+            Selection submitted successfully!
+        </div>
+    
+        <script>
+            function submitSelection() {
+                const checkboxes = document.querySelectorAll('.faculty-checkbox:checked');
+                if (checkboxes.length > 0) {
+                    document.getElementById('confirmation-message').style.display = 'block';
+    
+                    // Hide the message after 3 seconds
+                    setTimeout(() => {
+                        document.getElementById('confirmation-message').style.display = 'none';
+                    }, 3000); // Adjust time in milliseconds
+                } else {
+                    alert('Please select at least one faculty member.');
+                }
+            }
+    
+            function filterFaculty() {
+                const input = document.getElementById('search-input').value.toLowerCase();
+                const cards = document.querySelectorAll('.faculty-card');
+                cards.forEach(card => {
+                    const name = card.querySelector('h3').innerText.toLowerCase();
+                    if (name.includes(input)) {
+                        card.style.display = 'inline-block'; // Show the card if it matches the search
+                    } else {
+                        card.style.display = 'none'; // Hide if it doesn't match
+                    }
+                });
+            }
+        </script>
+    </body>
+</html>
